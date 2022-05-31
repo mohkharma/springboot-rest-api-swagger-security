@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 //Extend OncePerRequestFilter to ensure process each dispatched request only once
+//JwtAuthenticationFilter validates the Token using JwtTokenProvider:
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     // inject dependencies
@@ -37,11 +38,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // load user associated with token
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
+            // create AuthenticationToken
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities()
             );
+
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            // set spring security
+            // set spring security, Store Authentication object in SecurityContext
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
         filterChain.doFilter(request, response);
