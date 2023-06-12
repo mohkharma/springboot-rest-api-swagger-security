@@ -12,11 +12,13 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    /*In order to get the value of the JWT secret from the application.properties file*/
+    /*In order to get the value of the JWT secret from the
+    application.properties file*/
     @Value("${app.jwt-secret}")
     private String jwtSecret;
 
-    /*In order to get the value of the JWT expiration from the application.properties file*/
+    /*In order to get the value of the JWT expiration from the
+    application.properties file*/
     @Value("${app.jwt-expiration-milliseconds}")
     private int jwtExpirationInMs;
 

@@ -22,28 +22,37 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration //Spring configuration class, Annotating a class with the @Configuration indicates that the class can be used by the Spring IoC container as a source of bean definitions.
+@Configuration
+//Spring configuration class, Annotating a class with the @Configuration indicates that the class can be used by the Spring IoC container as a source of bean definitions.
 /**
  * The WebSecurityConfig class is annotated with @EnableWebSecurity
  * to enable Spring Security’s web security support and provide the
  * Spring MVC integration.
- * It also extends WebSecurityConfigurerAdapter and overrides a couple of its methods to set some specifics of the web security configuration.
+ * It also extends WebSecurityConfigurerAdapter and overrides a couple
+ * of its methods to set some specifics of the web security configuration.
  *
- * The configure(HttpSecurity) method defines which URL paths should be secured and which should not. Specifically, the / and /home paths are configured to not require any authentication. All other paths must be authenticated.
+ * The configure(HttpSecurity) method defines which URL paths should be
+ * secured and which should not.
+ * Specifically, the / and /home paths are configured to not require
+ * any authentication. All other paths must be authenticated.
  */
 @EnableWebSecurity
 /**
  * to allow method level Spring security annotation for our application,
- * so in controller can use The @PreAuthorize annotation to check before method execution.
+ * so in controller can use The @PreAuthorize annotation to check
+ * before method execution.
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtAuthenticationEntryPoint authenticationEntryPoint;
+    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
+
+    public SecurityConfig(CustomUserDetailsService userDetailsService, JwtAuthenticationEntryPoint authenticationEntryPoint) {
+        this.userDetailsService = userDetailsService;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+    }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(){
