@@ -20,7 +20,7 @@ public class SwaggerConfig {
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     private ApiKey apiKey(){
-        return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
+        return new ApiKey("Authorization", AUTHORIZATION_HEADER, "header");
     }
 
     private ApiInfo apiInfo(){
@@ -29,7 +29,7 @@ public class SwaggerConfig {
                 "Spring Boot Blog REST API Documentation",
                 "1",
                 "Terms of service",
-                new Contact("Ramesh Fadatare", "www.javaguides.net", "ramesh@gmail.com"),
+                new Contact("Your name", "www.profile.info", "name@gmail.com"),
                 "License of API",
                 "API license URL",
                 Collections.emptyList()
@@ -42,7 +42,7 @@ public class SwaggerConfig {
      */
     @Bean
     public Docket api(){
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(apiKey())) /*Enable authorization for APIs in Swagger UI*/

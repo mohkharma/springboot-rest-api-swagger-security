@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Api(value = "CRUD Rest APIs for Post resources")
+//@Api(value = "CRUD Rest APIs for Post resources")
 @RestController
 @RequestMapping()
 public class PostController {
@@ -26,7 +26,7 @@ public class PostController {
         this.postService = postService;
     }
 
-    @ApiOperation(value = "Create Post REST API")
+    @ApiOperation(value = "Create Post REST API, new changes")
     @PreAuthorize("hasRole('ADMIN')")
     /*To support multiple roles with or condition*/
 //    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
